@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="pt-BR" class="dark scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Plantão Pro é o PWA para médicos plantonistas organizarem agenda, ganhos, atrasos e relatórios fiscais em segundos."
+    />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Plantão Pro | O centro de comando do médico plantonista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:opsz,wght@14..32,400..800&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              ink: "#07111f",
+              electric: "#2563eb",
+              violet: "#8b5cf6",
+              mint: "#22c55e",
+              alert: "#ef4444"
+            },
+            boxShadow: {
+              glass: "0 24px 80px rgba(7, 17, 31, 0.16)",
+              phone: "0 32px 90px rgba(37, 99, 235, 0.34)"
+            },
+            borderRadius: {
+              "4xl": "2rem",
+              "5xl": "2.5rem"
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      .dark {
+        color-scheme: dark;
+      }
+
+      body {
+        font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      .font-display {
+        font-family: "Instrument Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+
+      .font-ui {
+        font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .hero-grid {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 42px 42px;
+      }
+
+      .light-grid {
+        background-image:
+          linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+        background-size: 38px 38px;
+      }
+
+      .marquee-track {
+        animation: marquee 26s linear infinite;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 700ms ease, transform 700ms ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .screen-shot {
+        aspect-ratio: 9 / 16;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .soft-mask {
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+          animation: none;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-[#f6f8fb] text-ink antialiased dark:bg-[#050914] dark:text-white">
+    <a
+      href="#conteudo"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:text-sm focus:font-black focus:text-electric focus:shadow-glass"
+    >
+      Pular para o conteúdo
+    </a>
+
+    <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+      <nav
+        class="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/12 bg-ink/82 px-4 py-3 text-white shadow-glass backdrop-blur-xl"
+        aria-label="Navegação principal"
+      >
+        <a href="#" class="flex items-center gap-3" aria-label="Plantão Pro, início">
+          <span class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl bg-white shadow-sm">
+            <img class="h-full w-full object-cover" src="assets/plantao-pro-logo.png" alt="" aria-hidden="true" />
+          </span>
+          <span class="text-base font-black tracking-normal sm:text-lg">Plantão Pro</span>
+        </a>
+
+        <div class="font-ui hidden items-center gap-7 text-sm font-medium tracking-wide text-white/68 md:flex">
+          <a class="transition hover:text-white" href="#funcionalidades">Funcionalidades</a>
+          <a class="transition hover:text-white" href="#planos">Planos</a>
+          <a class="transition hover:text-white" href="#faq">FAQ</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="https://plantaopro.app"
+            class="hidden rounded-full bg-white px-4 py-2 text-sm font-black text-ink transition hover:bg-blue-50 sm:inline-flex"
+          >
+            Entrar como visitante
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero-grid relative overflow-hidden bg-ink px-4 pb-16 pt-28 text-white sm:px-6 sm:pb-20 sm:pt-32 lg:px-8">
+        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f6f8fb] to-transparent dark:from-[#050914]" aria-hidden="true"></div>
+        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div class="reveal relative z-10">
+            <p class="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm font-black text-blue-100 backdrop-blur">
+              <span class="h-2 w-2 rounded-full bg-mint"></span>
+              Feito para o médico plantonista
+            </p>
+            <h1 class="font-display mt-7 max-w-4xl text-5xl leading-[0.94] tracking-normal sm:text-7xl lg:text-8xl">
+              Plantão, ganho e imposto. Tudo no mesmo pulso.
+            </h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              Cadastre escalas, veja quanto vai receber e envie o relatório fiscal para o contador sem caçar informação em agenda, WhatsApp e planilha.
+            </p>
+            <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#planos"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-electric px-7 py-4 text-base font-black text-white shadow-phone transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300/30"
+              >
+                <i data-lucide="zap" class="h-5 w-5" aria-hidden="true"></i>
+                Começar grátis
+              </a>
+              <a
+                href="https://plantaopro.app"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-white/16 bg-white/8 px-7 py-4 text-base font-black text-white backdrop-blur transition hover:bg-white/14"
+              >
+                Ver demonstração
+                <i data-lucide="arrow-right" class="h-5 w-5" aria-hidden="true"></i>
+              </a>
+            </div>
+            <p class="mt-5 text-sm font-bold text-slate-400">Grátis para começar · Sem cartão de crédito · Cancele quando quiser.</p>
+          </div>
+
+          <div class="reveal relative z-10 min-h-[620px] lg:min-h-[720px]" id="produto">
+            <div class="absolute left-1/2 top-4 w-[230px] -translate-x-[92%] rotate-[-10deg] overflow-hidden rounded-[2rem] border border-white/10 bg-white/8 p-2 opacity-75 shadow-phone backdrop-blur sm:w-[270px] lg:top-10">
+              <img class="screen-shot w-full rounded-[1.5rem]" src="assets/screens/home.jpeg" alt="Tela inicial com próximo plantão, resumo financeiro e atalhos do Plantão Pro" />
+            </div>
+            <div class="absolute left-1/2 top-24 w-[260px] -translate-x-1/2 overflow-hidden rounded-[2.25rem] border border-white/14 bg-white p-2 shadow-phone sm:w-[310px] lg:top-20 lg:w-[340px]">
+              <img class="screen-shot w-full rounded-[1.75rem]" src="assets/screens/ganhos.jpeg" alt="Painel financeiro do Plantão Pro com valores recebidos, a receber e atrasados" />
+            </div>
+            <div class="absolute left-1/2 top-40 w-[230px] translate-x-[8%] rotate-[9deg] overflow-hidden rounded-[2rem] border border-white/10 bg-white/8 p-2 opacity-90 shadow-phone backdrop-blur sm:w-[270px] lg:top-52">
+              <img class="screen-shot w-full rounded-[1.5rem]" src="assets/screens/relatorios.jpeg" alt="Tela de relatórios fiscais com PDF para contador, WhatsApp e e-mail" />
+            </div>
+            <div class="absolute bottom-8 left-1/2 w-[88%] -translate-x-1/2 rounded-4xl border border-white/12 bg-white/10 p-4 shadow-glass backdrop-blur-xl sm:w-[74%] lg:bottom-5">
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="rounded-3xl bg-white p-4 text-ink">
+                  <p class="text-xs font-black uppercase text-slate-400">Recebido</p>
+                  <p class="font-display mt-1 text-2xl text-mint">R$ 3,9k</p>
+                </div>
+                <div class="rounded-3xl bg-white p-4 text-ink">
+                  <p class="text-xs font-black uppercase text-slate-400">A receber</p>
+                  <p class="font-display mt-1 text-2xl text-electric">R$ 9,3k</p>
+                </div>
+                <div class="rounded-3xl bg-white p-4 text-ink">
+                  <p class="text-xs font-black uppercase text-slate-400">Atrasado</p>
+                  <p class="font-display mt-1 text-2xl text-alert">R$ 1,1k</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="overflow-hidden border-y border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-white/[0.03]" aria-label="Prova social">
+        <div class="soft-mask flex whitespace-nowrap">
+          <div class="marquee-track flex min-w-full items-center gap-8 pr-8 text-sm font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
+            <span>4,9/5 de satisfação</span><span>+</span><span>10.000 plantões organizados</span><span>+</span><span>Médicos de todo o Brasil</span><span>+</span><span>PDF fiscal em segundos</span><span>+</span>
+            <span>4,9/5 de satisfação</span><span>+</span><span>10.000 plantões organizados</span><span>+</span><span>Médicos de todo o Brasil</span><span>+</span><span>PDF fiscal em segundos</span><span>+</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="light-grid px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="problem-title">
+        <div class="mx-auto max-w-7xl">
+          <div class="reveal grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.22em] text-electric">O problema</p>
+              <h2 id="problem-title" class="font-display mt-4 max-w-3xl text-4xl leading-tight tracking-normal sm:text-6xl">
+                Você sabe quanto tem a receber este mês?
+              </h2>
+            </div>
+            <p class="text-lg leading-8 text-slate-600 dark:text-slate-300">
+              O Plantão Pro vira o centro de comando da sua rotina: locais, escalas, pagamentos, atrasos e relatórios fiscais conversam entre si.
+            </p>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-3">
+            <article class="reveal rounded-4xl border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+              <span class="text-sm font-black text-slate-400">001</span>
+              <i data-lucide="building-2" class="mt-10 h-8 w-8 text-electric" aria-hidden="true"></i>
+              <h3 class="font-display mt-5 text-3xl">Cadastre seus locais</h3>
+              <p class="mt-3 leading-7 text-slate-600 dark:text-slate-300">Hospitais, UPAs e clínicas com valor padrão, dia de pagamento, cor e CNPJ.</p>
+            </article>
+            <article class="reveal rounded-4xl border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+              <span class="text-sm font-black text-slate-400">002</span>
+              <i data-lucide="calendar-plus" class="mt-10 h-8 w-8 text-violet" aria-hidden="true"></i>
+              <h3 class="font-display mt-5 text-3xl">Adicione plantões</h3>
+              <p class="mt-3 leading-7 text-slate-600 dark:text-slate-300">Modo rápido, manual ou recorrente para preencher a escala sem perder tempo.</p>
+            </article>
+            <article class="reveal rounded-4xl border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+              <span class="text-sm font-black text-slate-400">003</span>
+              <i data-lucide="file-spreadsheet" class="mt-10 h-8 w-8 text-mint" aria-hidden="true"></i>
+              <h3 class="font-display mt-5 text-3xl">Exporte relatórios</h3>
+              <p class="mt-3 leading-7 text-slate-600 dark:text-slate-300">PDF e CSV prontos para contador, com previsão tributária por regime.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="funcionalidades" class="bg-ink px-4 py-20 text-white sm:px-6 lg:px-8" aria-labelledby="features-title">
+        <div class="mx-auto max-w-7xl">
+          <div class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.22em] text-blue-300">Produto real</p>
+              <h2 id="features-title" class="font-display mt-4 max-w-4xl text-4xl leading-tight tracking-normal sm:text-6xl">
+                As telas que resolvem a rotina do plantão.
+              </h2>
+            </div>
+            <p class="max-w-md text-lg leading-8 text-slate-300">
+              Cada função nasce de uma dor prática: saber a agenda, cobrar atrasos, fechar o mês e mandar tudo para o contador.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            <article class="reveal overflow-hidden rounded-5xl border border-white/10 bg-white/[0.06] p-4 lg:col-span-2">
+              <div class="grid gap-5 md:grid-cols-[0.85fr_1.15fr] md:items-center">
+                <div class="p-4">
+                  <span class="inline-flex rounded-full bg-blue-500/14 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-blue-200">Painel financeiro</span>
+                  <h3 class="font-display mt-5 text-4xl leading-tight">Previsto, recebido, a receber e atrasado no mesmo lugar.</h3>
+                  <p class="mt-4 leading-7 text-slate-300">A tela de ganhos transforma cada plantão em visão de caixa, evolução mensal, meta e rentabilidade por local.</p>
+                </div>
+                <img class="screen-shot mx-auto w-full max-w-[330px] rounded-[2rem] shadow-phone" src="assets/screens/ganhos.jpeg" alt="Tela de ganhos do Plantão Pro" />
+              </div>
+            </article>
+
+            <article class="reveal overflow-hidden rounded-5xl border border-white/10 bg-white/[0.06] p-4">
+              <div class="p-4">
+                <span class="inline-flex rounded-full bg-purple-500/14 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-purple-200">Agenda visual</span>
+                <h3 class="font-display mt-5 text-4xl leading-tight">Calendário por cor, hospital e dia.</h3>
+              </div>
+              <img class="screen-shot mx-auto w-full max-w-[280px] rounded-[2rem] shadow-phone" src="assets/screens/calendario-dia.jpeg" alt="Calendário com plantões em um dia selecionado" />
+            </article>
+
+            <article class="reveal overflow-hidden rounded-5xl border border-white/10 bg-white/[0.06] p-4">
+              <div class="p-4">
+                <span class="inline-flex rounded-full bg-emerald-500/14 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-emerald-200">Multi-local</span>
+                <h3 class="font-display mt-5 text-4xl leading-tight">Hospitais, UPAs e clínicas sem misturar pagamento.</h3>
+              </div>
+              <img class="screen-shot mx-auto w-full max-w-[280px] rounded-[2rem] shadow-phone" src="assets/screens/locais.jpeg" alt="Lista de locais de plantão cadastrados no Plantão Pro" />
+            </article>
+
+            <article class="reveal overflow-hidden rounded-5xl border border-white/10 bg-white/[0.06] p-4 lg:col-span-2">
+              <div class="grid gap-5 md:grid-cols-[1fr_1fr] md:items-center">
+              <img class="screen-shot mx-auto w-full max-w-[300px] rounded-[2rem] shadow-phone md:order-2" src="assets/screens/relatorio-preview-dark.jpeg" alt="Pré-visualização escura do relatório mensal de prestação de serviços" />
+                <div class="p-4">
+                  <span class="inline-flex rounded-full bg-red-500/14 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-red-200">Contabilidade</span>
+                  <h3 class="font-display mt-5 text-4xl leading-tight">Relatório fiscal que já chega com cara de documento.</h3>
+                  <p class="mt-4 leading-7 text-slate-300">Resumo financeiro, faturamento por fonte pagadora, extrato de plantões e botões para baixar PDF, CSV ou compartilhar.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="overflow-hidden bg-white py-20 dark:bg-[#050914]" aria-labelledby="flow-title">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="reveal max-w-4xl">
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-electric">Fluxo sem atrito</p>
+            <h2 id="flow-title" class="font-display mt-4 text-4xl leading-tight tracking-normal sm:text-6xl">
+              Rápido para cadastrar. Profundo quando precisa.
+            </h2>
+          </div>
+        </div>
+        <div class="soft-mask mt-12 overflow-hidden">
+          <div class="marquee-track flex w-max gap-5 px-4">
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/home.jpeg" alt="Tela inicial com plantão do dia e atalhos" />
+              <figcaption class="px-3 py-4 text-sm font-black">Resumo do dia</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/calendario-dia.jpeg" alt="Calendário de junho com plantão selecionado" />
+              <figcaption class="px-3 py-4 text-sm font-black">Agenda visual</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/ganhos.jpeg" alt="Tela de ganhos de junho com painel financeiro" />
+              <figcaption class="px-3 py-4 text-sm font-black">Painel financeiro</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/locais.jpeg" alt="Lista de locais de plantão" />
+              <figcaption class="px-3 py-4 text-sm font-black">Locais de plantão</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/novo-local.jpeg" alt="Formulário para cadastrar novo local de plantão" />
+              <figcaption class="px-3 py-4 text-sm font-black">Novo local</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/local-detalhe.jpeg" alt="Detalhes do Hospital São Marcos com modelos e histórico de plantões" />
+              <figcaption class="px-3 py-4 text-sm font-black">Histórico por local</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/relatorios.jpeg" alt="Tela de relatórios com faturamento e previsão tributária" />
+              <figcaption class="px-3 py-4 text-sm font-black">Relatórios fiscais</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/contabilidade-config.jpeg" alt="Modal de configurações contábeis" />
+              <figcaption class="px-3 py-4 text-sm font-black">Configuração fiscal</figcaption>
+            </figure>
+            <figure class="w-[245px] shrink-0 rounded-[2rem] border border-slate-200 bg-slate-100 p-2 shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[290px]">
+              <img class="screen-shot rounded-[1.5rem]" src="assets/screens/relatorio-detalhe-dark.jpeg" alt="Extrato detalhado de plantões no relatório fiscal em modo escuro" />
+              <figcaption class="px-3 py-4 text-sm font-black">Extrato detalhado</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="planos" class="px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="pricing-title">
+        <div class="mx-auto max-w-7xl">
+          <div class="reveal grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.22em] text-electric">Planos</p>
+              <h2 id="pricing-title" class="font-display mt-4 text-4xl leading-tight tracking-normal sm:text-6xl">
+                Comece grátis. Cresça sem planilha.
+              </h2>
+            </div>
+            <div class="lg:justify-self-end">
+              <div class="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+                <span class="pl-4 text-sm font-black text-slate-600 dark:text-slate-300">Mensal</span>
+                <button
+                  id="billingToggle"
+                  type="button"
+                  class="relative h-8 w-16 rounded-full bg-slate-200 transition aria-pressed:bg-electric dark:bg-white/15"
+                  aria-pressed="false"
+                  aria-label="Alternar faturamento anual com desconto de dois meses"
+                >
+                  <span class="absolute left-1 top-1 h-6 w-6 rounded-full bg-white shadow transition"></span>
+                </button>
+                <span class="pr-4 text-sm font-black text-slate-600 dark:text-slate-300">Anual, 2 meses grátis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 grid gap-5 lg:grid-cols-3 lg:items-stretch">
+            <article class="reveal rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] lg:mt-8">
+              <h3 class="text-2xl font-black">Free</h3>
+              <p class="font-display mt-5 text-5xl">R$ 0<span class="font-ui text-base text-slate-500">/mês</span></p>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">1 local, até 10 plantões/mês e painel financeiro do mês.</p>
+              <ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>1 local de trabalho</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Até 10 plantões por mês</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Painel financeiro mensal</li>
+              </ul>
+              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Começar grátis</a>
+            </article>
+
+            <article class="reveal relative overflow-hidden rounded-4xl border border-electric/70 bg-white p-6 shadow-phone transition duration-300 hover:-translate-y-1 dark:bg-white/[0.04]">
+              <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-electric via-violet to-mint" aria-hidden="true"></div>
+              <div class="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-ink px-3 py-1.5 text-xs font-semibold tracking-wide text-white shadow-lg shadow-blue-900/20 dark:border-white/10">
+                <i data-lucide="sparkles" class="h-3.5 w-3.5 text-blue-200" aria-hidden="true"></i>
+                Mais escolhido
+              </div>
+              <h3 class="mt-5 text-2xl font-black">Pro</h3>
+              <p class="font-display mt-5 text-5xl"><span class="price" data-monthly="19,90" data-yearly="199,90">R$ 19,90</span><span class="billing-period font-ui text-base text-slate-500">/mês</span></p>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">Locais ilimitados, recorrência, gráficos, metas, atrasos e relatório fiscal.</p>
+              <ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Locais e plantões ilimitados</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Escalas recorrentes</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Gráficos, metas e alertas</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Relatório fiscal e previsão tributária</li>
+              </ul>
+              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-electric px-5 py-4 font-black text-white">Assinar o Pro</a>
+            </article>
+
+            <article class="reveal rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] lg:mt-8">
+              <h3 class="text-2xl font-black">Max</h3>
+              <p class="font-display mt-5 text-5xl"><span class="price" data-monthly="29,90" data-yearly="299,90">R$ 29,90</span><span class="billing-period font-ui text-base text-slate-500">/mês</span></p>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">Múltiplos CNPJs, relatórios anuais, WhatsApp para contador e suporte prioritário.</p>
+              <ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Múltiplos CNPJs</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Relatórios anuais</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Envio ao contador via WhatsApp</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Histórico ilimitado e suporte prioritário</li>
+              </ul>
+              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Assinar o Max</a>
+            </article>
+          </div>
+
+          <p class="mt-6 text-center text-sm font-black text-slate-500 dark:text-slate-400">Cancele quando quiser. Sem fidelidade.</p>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-ink px-4 py-20 text-white sm:px-6 lg:px-8" aria-labelledby="faq-title">
+        <div class="mx-auto max-w-4xl">
+          <div class="reveal text-center">
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-blue-300">FAQ</p>
+            <h2 id="faq-title" class="font-display mt-4 text-4xl leading-tight tracking-normal sm:text-6xl">Dúvidas frequentes</h2>
+          </div>
+          <div class="mt-10 space-y-3">
+            <details class="faq-item reveal group rounded-4xl border border-white/10 bg-white/[0.06] p-6 open:bg-white open:text-ink" open>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-black">
+                <span class="flex items-center gap-3"><i data-lucide="user-check" class="h-5 w-5 text-electric" aria-hidden="true"></i>Sobre o uso</span>
+                <i data-lucide="chevron-down" class="h-5 w-5 transition group-open:rotate-180" aria-hidden="true"></i>
+              </summary>
+              <div class="mt-5 space-y-4 leading-7 text-slate-300 group-open:text-slate-600">
+                <p><strong class="group-open:text-ink">O que é?</strong> Um PWA para organizar agenda, ganhos, pendências e relatórios fiscais de plantões.</p>
+                <p><strong class="group-open:text-ink">Para quem é?</strong> Médicos plantonistas com um ou vários vínculos, PJ ou PF.</p>
+                <p><strong class="group-open:text-ink">Cadastro de vários hospitais?</strong> Sim. Nos planos pagos você cadastra locais sem limite.</p>
+              </div>
+            </details>
+            <details class="faq-item reveal group rounded-4xl border border-white/10 bg-white/[0.06] p-6 open:bg-white open:text-ink">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-black">
+                <span class="flex items-center gap-3"><i data-lucide="scale" class="h-5 w-5 text-violet" aria-hidden="true"></i>Finanças e impostos</span>
+                <i data-lucide="chevron-down" class="h-5 w-5 transition group-open:rotate-180" aria-hidden="true"></i>
+              </summary>
+              <div class="mt-5 space-y-4 leading-7 text-slate-300 group-open:text-slate-600">
+                <p><strong class="group-open:text-ink">Calcula impostos?</strong> Faz previsão tributária para planejamento e conferência com o contador.</p>
+                <p><strong class="group-open:text-ink">Suporta quais regimes?</strong> MEI, Simples Nacional, Lucro Presumido e Pessoa Física.</p>
+                <p><strong class="group-open:text-ink">Substitui nota fiscal?</strong> Não. Ele organiza dados e relatórios; a emissão segue no sistema fiscal indicado pelo contador.</p>
+              </div>
+            </details>
+            <details class="faq-item reveal group rounded-4xl border border-white/10 bg-white/[0.06] p-6 open:bg-white open:text-ink">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-black">
+                <span class="flex items-center gap-3"><i data-lucide="credit-card" class="h-5 w-5 text-mint" aria-hidden="true"></i>Planos e pagamentos</span>
+                <i data-lucide="chevron-down" class="h-5 w-5 transition group-open:rotate-180" aria-hidden="true"></i>
+              </summary>
+              <div class="mt-5 space-y-4 leading-7 text-slate-300 group-open:text-slate-600">
+                <p><strong class="group-open:text-ink">Diferença dos planos?</strong> Free valida o básico, Pro cobre a rotina completa e Max adiciona CNPJs, histórico e automações.</p>
+                <p><strong class="group-open:text-ink">Precisa de cartão no Free?</strong> Não. Dá para começar sem cartão de crédito.</p>
+              </div>
+            </details>
+            <details class="faq-item reveal group rounded-4xl border border-white/10 bg-white/[0.06] p-6 open:bg-white open:text-ink">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-black">
+                <span class="flex items-center gap-3"><i data-lucide="smartphone" class="h-5 w-5 text-blue-300" aria-hidden="true"></i>Segurança e tecnologia</span>
+                <i data-lucide="chevron-down" class="h-5 w-5 transition group-open:rotate-180" aria-hidden="true"></i>
+              </summary>
+              <div class="mt-5 space-y-4 leading-7 text-slate-300 group-open:text-slate-600">
+                <p><strong class="group-open:text-ink">Precisa baixar nas lojas?</strong> Não. Como PWA, pode ser usado pelo navegador e instalado na tela inicial.</p>
+                <p><strong class="group-open:text-ink">Tem modo escuro?</strong> Sim, com alternância para plantões noturnos e uso prolongado.</p>
+              </div>
+            </details>
+          </div>
+          <div class="reveal mt-8 rounded-4xl border border-white/10 bg-white p-6 text-center text-ink">
+            <p class="text-xl font-black">Ainda tem dúvidas? Fale com a gente no WhatsApp.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white px-4 py-10 dark:border-white/10 dark:bg-[#050914] sm:px-6 lg:px-8" aria-label="Rodapé">
+      <div class="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
+        <a href="#" class="flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl bg-white shadow-sm">
+            <img class="h-full w-full object-cover" src="assets/plantao-pro-logo.png" alt="" aria-hidden="true" />
+          </span>
+          <span class="text-lg font-black">Plantão Pro</span>
+        </a>
+        <div class="font-ui flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium tracking-wide text-slate-500 dark:text-slate-300">
+          <a href="#funcionalidades" class="hover:text-electric">Funcionalidades</a>
+          <a href="#planos" class="hover:text-electric">Planos</a>
+          <a href="#faq" class="hover:text-electric">FAQ</a>
+          <a href="#" class="hover:text-electric">Termos de Uso</a>
+          <a href="#" class="hover:text-electric">Política de Privacidade</a>
+        </div>
+        <p class="font-ui text-sm font-normal text-slate-400">Copyright 2026 Plantão Pro.</p>
+      </div>
+    </footer>
+
+    <script>
+      const billingToggle = document.getElementById("billingToggle");
+      billingToggle.addEventListener("click", () => {
+        const annual = billingToggle.getAttribute("aria-pressed") !== "true";
+        billingToggle.setAttribute("aria-pressed", String(annual));
+        billingToggle.querySelector("span").style.transform = annual ? "translateX(2rem)" : "translateX(0)";
+        document.querySelectorAll(".price").forEach((price) => {
+          const value = annual ? price.dataset.yearly : price.dataset.monthly;
+          price.textContent = `R$ ${value}`;
+        });
+        document.querySelectorAll(".billing-period").forEach((period) => {
+          period.textContent = annual ? "/ano" : "/mês";
+        });
+      });
+
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        item.addEventListener("toggle", () => {
+          if (!item.open) return;
+          document.querySelectorAll(".faq-item").forEach((other) => {
+            if (other !== item) other.open = false;
+          });
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    </script>
+  </body>
+</html>
