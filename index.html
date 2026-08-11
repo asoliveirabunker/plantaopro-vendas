@@ -114,6 +114,14 @@
         mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
       }
 
+      .no-scrollbar {
+        scrollbar-width: none;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .marquee-track {
           animation: none;
@@ -407,8 +415,8 @@
             </div>
           </div>
 
-          <div class="mt-10 grid gap-5 lg:grid-cols-3 lg:items-stretch">
-            <article class="reveal rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] lg:mt-8">
+          <div class="no-scrollbar -mx-4 mt-10 flex snap-x gap-5 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0">
+            <article class="reveal flex w-[82vw] max-w-[22rem] shrink-0 snap-center flex-col rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[21rem] lg:w-auto lg:flex-1">
               <h3 class="text-2xl font-black">Free</h3>
               <p class="font-display mt-5 text-5xl">R$ 0<span class="font-ui text-base text-slate-500">/mês</span></p>
               <p class="mt-4 text-slate-600 dark:text-slate-300">1 local, até 10 plantões/mês e painel financeiro do mês.</p>
@@ -417,38 +425,38 @@
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Até 10 plantões por mês</li>
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Painel financeiro mensal</li>
               </ul>
-              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Começar grátis</a>
+              <a href="https://plantaopro.app" class="mt-auto inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Começar grátis</a>
             </article>
 
-            <article class="reveal relative overflow-hidden rounded-4xl border border-electric/70 bg-white p-6 shadow-phone transition duration-300 hover:-translate-y-1 dark:bg-white/[0.04]">
+            <article class="reveal relative flex w-[82vw] max-w-[22rem] shrink-0 snap-center flex-col overflow-hidden rounded-4xl border border-electric/70 bg-white p-6 shadow-phone transition duration-300 hover:-translate-y-1 dark:bg-white/[0.04] sm:w-[21rem] lg:w-auto lg:flex-1">
               <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-electric via-violet to-mint" aria-hidden="true"></div>
               <div class="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-ink px-3 py-1.5 text-xs font-semibold tracking-wide text-white shadow-lg shadow-blue-900/20 dark:border-white/10">
                 <i data-lucide="sparkles" class="h-3.5 w-3.5 text-blue-200" aria-hidden="true"></i>
                 Mais escolhido
               </div>
               <h3 class="mt-5 text-2xl font-black">Pro</h3>
-              <p class="font-display mt-5 text-5xl"><span class="price" data-monthly="19,90" data-yearly="199,90">R$ 19,90</span><span class="billing-period font-ui text-base text-slate-500">/mês</span></p>
-              <p class="mt-4 text-slate-600 dark:text-slate-300">Locais ilimitados, recorrência, gráficos, metas, atrasos e relatório fiscal.</p>
+              <p class="font-display mt-5 text-5xl"><span class="price" data-monthly="14,90" data-yearly="149,90">R$ 14,90</span><span class="billing-period font-ui text-base text-slate-500">/mês</span></p>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">Locais ilimitados, recorrência, gráficos, metas e edição completa de plantões.</p>
               <ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300">
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Locais e plantões ilimitados</li>
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Escalas recorrentes</li>
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Gráficos, metas e alertas</li>
-                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Relatório fiscal e previsão tributária</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Edição completa de plantões</li>
               </ul>
-              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-electric px-5 py-4 font-black text-white">Assinar o Pro</a>
+              <a href="#" data-checkout-plan="pro" class="mt-auto inline-flex w-full justify-center rounded-full bg-electric px-5 py-4 font-black text-white">Assinar o Pro</a>
             </article>
 
-            <article class="reveal rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] lg:mt-8">
+            <article class="reveal flex w-[82vw] max-w-[22rem] shrink-0 snap-center flex-col rounded-4xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-glass dark:border-white/10 dark:bg-white/[0.04] sm:w-[21rem] lg:w-auto lg:flex-1">
               <h3 class="text-2xl font-black">Max</h3>
               <p class="font-display mt-5 text-5xl"><span class="price" data-monthly="29,90" data-yearly="299,90">R$ 29,90</span><span class="billing-period font-ui text-base text-slate-500">/mês</span></p>
-              <p class="mt-4 text-slate-600 dark:text-slate-300">Múltiplos CNPJs, relatórios anuais, WhatsApp para contador e suporte prioritário.</p>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">Tudo do Pro mais toda a contabilidade: relatório para o contador, previsão tributária e múltiplos CNPJs.</p>
               <ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300">
-                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Múltiplos CNPJs</li>
-                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Relatórios anuais</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Relatório fiscal e previsão tributária</li>
+                <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Múltiplos CNPJs e relatórios anuais</li>
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Envio ao contador via WhatsApp</li>
                 <li class="flex gap-2"><i data-lucide="check" class="h-5 w-5 text-mint" aria-hidden="true"></i>Histórico ilimitado e suporte prioritário</li>
               </ul>
-              <a href="#" class="mt-7 inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Assinar o Max</a>
+              <a href="#" data-checkout-plan="max" class="mt-auto inline-flex w-full justify-center rounded-full bg-ink px-5 py-4 font-black text-white dark:bg-white dark:text-ink">Assinar o Max</a>
             </article>
           </div>
 
@@ -572,6 +580,92 @@
 
       if (window.lucide) {
         lucide.createIcons();
+      }
+
+      /* ============================================================
+       * Checkout Mercado Pago
+       * O app abre esta página com ?uid=<id>&email=<email>&plano=<pro|max>.
+       * Esses dados ligam o pagamento à conta certa — sem eles, mandamos o
+       * visitante criar a conta primeiro (ela é necessária para usar o produto).
+       * ============================================================ */
+      const APP_URL = "https://plantaopro.app";
+      const params = new URLSearchParams(location.search);
+      const account = { uid: params.get("uid") || "", email: params.get("email") || "" };
+
+      function isAnnual() {
+        return billingToggle.getAttribute("aria-pressed") === "true";
+      }
+
+      function setButtonLoading(btn, loading) {
+        if (loading) {
+          btn.dataset.label = btn.textContent;
+          btn.textContent = "Abrindo checkout...";
+          btn.style.pointerEvents = "none";
+          btn.style.opacity = "0.7";
+        } else {
+          if (btn.dataset.label) btn.textContent = btn.dataset.label;
+          btn.style.pointerEvents = "";
+          btn.style.opacity = "";
+        }
+      }
+
+      async function startCheckout(btn, plan) {
+        // Sem conta identificada não há como ativar o plano depois do pagamento.
+        if (!account.email) {
+          const back = encodeURIComponent(location.origin + "/?plano=" + plan);
+          location.href = `${APP_URL}/?assinar=${plan}&retorno=${back}`;
+          return;
+        }
+
+        setButtonLoading(btn, true);
+        try {
+          const res = await fetch("/api/create-subscription", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              plan,
+              billing: isAnnual() ? "yearly" : "monthly",
+              email: account.email,
+              uid: account.uid,
+            }),
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok || !data.checkoutUrl) {
+            alert(data.error || "Não foi possível abrir o checkout. Tente novamente em instantes.");
+            setButtonLoading(btn, false);
+            return;
+          }
+          location.href = data.checkoutUrl;
+        } catch (err) {
+          console.error(err);
+          alert("Falha de conexão ao abrir o checkout. Verifique sua internet e tente novamente.");
+          setButtonLoading(btn, false);
+        }
+      }
+
+      document.querySelectorAll("[data-checkout-plan]").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          startCheckout(btn, btn.dataset.checkoutPlan);
+        });
+      });
+
+      // Volta do Mercado Pago após assinar.
+      if (params.get("assinatura") === "sucesso") {
+        const banner = document.createElement("div");
+        banner.className =
+          "fixed inset-x-0 top-0 z-50 bg-mint px-4 py-3 text-center text-sm font-black text-ink";
+        banner.textContent =
+          "Assinatura confirmada! Pode voltar ao app — seu plano é liberado assim que o pagamento for aprovado.";
+        document.body.appendChild(banner);
+      }
+
+      // Destaca o plano que o usuário veio assinar.
+      const planoAlvo = params.get("plano");
+      if (planoAlvo) {
+        const alvo = document.querySelector(`[data-checkout-plan="${planoAlvo}"]`);
+        if (alvo) alvo.closest("article")?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     </script>
   </body>

@@ -1,0 +1,10 @@
+{
+  "name": "plantaopro-vendas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Página de vendas do Plantão Pro + funções serverless do checkout (Mercado Pago).",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
